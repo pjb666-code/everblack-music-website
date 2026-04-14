@@ -14,7 +14,7 @@ const NAV_ITEMS = [
   { label: "Shop", path: "/shop" },
 ] as const;
 
-function LogoImage({ scrolled }: { scrolled: boolean }) {
+function LogoImage(_: { scrolled: boolean }) {
   const { data: logoPath } = useSiteLogoUrl();
   const { data: logoSizePct } = useLogoSizePercent();
   // Convert blob path to actual URL
@@ -40,15 +40,21 @@ function LogoImage({ scrolled }: { scrolled: boolean }) {
   const sizePercent = logoSizePct !== undefined ? Number(logoSizePct) : 100;
   // sizePercent 20–200 maps to 40px–400px width; at 100% = 200px
   const logoWidth = Math.round((sizePercent / 100) * 200);
+  const logoHeight = Math.round((sizePercent / 100) * 64);
 
   return (
-    <div style={{ maxWidth: `${logoWidth}px`, width: "100%", flexShrink: 0 }}>
+    <div
+      style={{
+        maxWidth: `${logoWidth}px`,
+        maxHeight: `${logoHeight}px`,
+        width: "100%",
+        flexShrink: 0,
+      }}
+    >
       <img
         src={logoSrc}
         alt="Everblack Music Logo"
-        className={`object-contain w-full transition-all duration-300 ${
-          scrolled ? "max-h-12 md:max-h-14" : "max-h-16 md:max-h-20"
-        }`}
+        className="object-contain w-full h-full transition-all duration-300"
       />
     </div>
   );

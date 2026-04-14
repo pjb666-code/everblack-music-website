@@ -460,3 +460,12 @@ img {
     var(--gradient-end)
   ) !important;
 }
+
+.gradient-mode .bg-primary {
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  ) !important;
+  background-color: transparent !important;
+}

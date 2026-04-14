@@ -466,38 +466,11 @@ function EmptyState({ category }: { category: Category }) {
   );
 }
 
-// ─── Stripe Warning Banner ────────────────────────────────────────────────────
-
-function StripeNotConfiguredBanner() {
-  return (
-    <div
-      className="flex items-start gap-3 rounded-xl bg-destructive/10 border border-destructive/30 px-5 py-4 mb-10"
-      role="alert"
-      data-ocid="stripe-warning"
-    >
-      <AlertTriangle
-        className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0"
-        aria-hidden
-      />
-      <div>
-        <p className="text-sm font-semibold text-destructive">
-          Stripe nicht konfiguriert
-        </p>
-        <p className="text-xs text-muted-foreground mt-0.5">
-          Bestellungen sind noch nicht möglich. Bitte Stripe im Admin-Panel
-          einrichten.
-        </p>
-      </div>
-    </div>
-  );
-}
-
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function ShopPage() {
   const { actor, isFetching } = useActor();
   const [category, setCategory] = useState<Category>("all");
-  const { isStripeConfigured } = useCheckout();
   const { data: siteTexts } = useSiteTexts();
 
   useEffect(() => {
@@ -557,12 +530,6 @@ export default function ShopPage() {
               <CartSidebar />
             </div>
           </ScrollReveal>
-
-          {!isStripeConfigured && !isLoading && (
-            <ScrollReveal direction="up" delay={100}>
-              <StripeNotConfiguredBanner />
-            </ScrollReveal>
-          )}
 
           {/* Grid */}
           {isLoading ? (
