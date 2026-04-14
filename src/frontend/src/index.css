@@ -450,3 +450,13 @@ img {
     );
   }
 }
+
+/* Gradient mode — applied when admin enables gradient; CSS-only, no React state */
+.gradient-mode .button-primary,
+.gradient-mode .button-accent {
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  ) !important;
+}

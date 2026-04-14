@@ -105,6 +105,12 @@ function ColorSchemeApplier() {
         if (scheme.gradientEndColor) {
           root.style.setProperty("--gradient-end", scheme.gradientEndColor);
         }
+        // Apply gradient-mode class — CSS-only, no React state involved
+        if (scheme.gradientEnabled) {
+          root.classList.add("gradient-mode");
+        } else {
+          root.classList.remove("gradient-mode");
+        }
       })
       .catch(() => {
         // Keep default CSS variables from index.css on error

@@ -14,6 +14,9 @@ import type {
 } from "@/backend";
 import { useActor } from "@/hooks/useActor";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+
+const SAVE_ERROR_MSG = "Speichern fehlgeschlagen. Bitte versuche es erneut.";
 
 // ─── Teaching Models ──────────────────────────────────────────────────────────
 
@@ -26,7 +29,7 @@ export function useTeachingModels() {
       return actor.getTeachingModels();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -43,6 +46,7 @@ export function useAddTeachingModel() {
       return actor.addTeachingModel(model);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["teaching-models"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -55,6 +59,7 @@ export function useUpdateTeachingModel() {
       return actor.updateTeachingModel(model);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["teaching-models"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -67,6 +72,7 @@ export function useDeleteTeachingModel() {
       return actor.deleteTeachingModel(id);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["teaching-models"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -81,7 +87,7 @@ export function useStudioServices() {
       return actor.getStudioServices();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -98,6 +104,7 @@ export function useAddStudioService() {
       return actor.addStudioService(service);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["studio-services"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -110,6 +117,7 @@ export function useUpdateStudioService() {
       return actor.updateStudioService(service);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["studio-services"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -122,6 +130,7 @@ export function useDeleteStudioService() {
       return actor.deleteStudioService(id);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["studio-services"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -136,7 +145,7 @@ export function useMediaItems() {
       return actor.getMediaItems();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -153,6 +162,7 @@ export function useAddMediaItem() {
       return actor.addMediaItem(item);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["media-items"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -165,6 +175,7 @@ export function useUpdateMediaItem() {
       return actor.updateMediaItem(item);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["media-items"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -177,6 +188,7 @@ export function useDeleteMediaItem() {
       return actor.deleteMediaItem(id);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["media-items"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -216,7 +228,7 @@ export function useAlbums() {
       return actor.getAlbums();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -312,7 +324,7 @@ export function useStandaloneAlbums() {
       }));
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: 30_000,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -369,6 +381,7 @@ export function useAddAlbum() {
       qc.invalidateQueries({ queryKey: ["standalone-albums"] });
       qc.invalidateQueries({ queryKey: ["backend-albums"] });
     },
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -392,6 +405,7 @@ export function useUpdateAlbum() {
       qc.invalidateQueries({ queryKey: ["standalone-albums"] });
       qc.invalidateQueries({ queryKey: ["backend-albums"] });
     },
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -408,6 +422,7 @@ export function useDeleteAlbum() {
       qc.invalidateQueries({ queryKey: ["backend-albums"] });
       qc.invalidateQueries({ queryKey: ["media-items"] });
     },
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -441,6 +456,7 @@ export function useAddAlbumTrack() {
       qc.invalidateQueries({ queryKey: ["standalone-album-tracks", "all"] });
       qc.invalidateQueries({ queryKey: ["backend-albums"] });
     },
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -459,6 +475,7 @@ export function useDeleteAlbumTrack() {
       qc.invalidateQueries({ queryKey: ["standalone-album-tracks", "all"] });
       qc.invalidateQueries({ queryKey: ["backend-albums"] });
     },
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -475,7 +492,7 @@ export function useFeatureCards() {
       return actor.getFeatureCards();
     },
     enabled: !!actor,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -492,6 +509,7 @@ export function useAddFeatureCard() {
       return actor.addFeatureCard(card);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["feature-cards"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -504,6 +522,7 @@ export function useUpdateFeatureCard() {
       return actor.updateFeatureCard(card);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["feature-cards"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -516,6 +535,7 @@ export function useDeleteFeatureCard() {
       return actor.deleteFeatureCard(id);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["feature-cards"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -539,7 +559,7 @@ export function useColorScheme() {
       return actor.getColorScheme();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -556,6 +576,7 @@ export function useUpdateColorScheme() {
       return actor.updateColorScheme(scheme);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["color-scheme"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -577,7 +598,7 @@ export function useHeroSection() {
       return actor.getHeroSection();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -599,7 +620,7 @@ export function useAboutSection() {
       return actor.getAboutSection();
     },
     enabled: !!actor,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -616,7 +637,7 @@ export function useContactInfo() {
       return actor.getContactInfo();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -635,7 +656,7 @@ export function useProducts() {
       return actor.getProducts();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
   });
@@ -650,6 +671,7 @@ export function useAddProduct() {
       return actor.addProduct(product);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["products"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -662,6 +684,7 @@ export function useUpdateProduct() {
       return actor.updateProduct(product);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["products"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -674,6 +697,7 @@ export function useDeleteProduct() {
       return actor.deleteProduct(id);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["products"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -692,7 +716,7 @@ export function useLandingPageConfig() {
       return actor.getLandingPageConfig();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -710,6 +734,7 @@ export function useUpdateLandingPageConfig() {
     },
     onSuccess: () =>
       qc.invalidateQueries({ queryKey: ["landing-page-config"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -728,7 +753,7 @@ export function useAnimationConfig() {
       return actor.getAnimationConfig();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
   });
@@ -745,7 +770,7 @@ export function useImprint() {
       return actor.getImprint();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
   });
@@ -760,7 +785,7 @@ export function usePrivacyPolicy() {
       return actor.getPrivacyPolicy();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
   });
@@ -775,7 +800,7 @@ export function useTermsOfService() {
       return actor.getTermsOfService();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
   });
@@ -792,7 +817,7 @@ export function useSiteLogoUrl() {
       return actor.getSiteLogoUrl();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
   });
@@ -807,6 +832,7 @@ export function useUpdateSiteLogoUrl() {
       return actor.updateSiteLogoUrl(url);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["site-logo-url"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -821,7 +847,7 @@ export function useLogoSizePercent() {
       return actor.getLogoSizePercent();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
   });
@@ -836,6 +862,7 @@ export function useUpdateLogoSizePercent() {
       return actor.updateLogoSizePercent(size);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["logo-size-percent"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -850,7 +877,7 @@ export function useStudioStats() {
       return actor.getStudioStats();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -867,6 +894,7 @@ export function useAddStudioStat() {
       return actor.addStudioStat(stat);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["studio-stats"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -879,6 +907,7 @@ export function useUpdateStudioStat() {
       return actor.updateStudioStat(stat);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["studio-stats"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -891,6 +920,7 @@ export function useDeleteStudioStat() {
       return actor.deleteStudioStat(id);
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["studio-stats"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -961,7 +991,7 @@ export function useSiteTexts() {
       return EMPTY_SITE_TEXTS;
     },
     enabled: !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -989,6 +1019,7 @@ export function useUpdateSiteTexts() {
       }
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["site-texts"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -1018,7 +1049,7 @@ export function useFaviconUrl() {
       return "";
     },
     enabled: !isFetching,
-    retry: 0,
+    retry: 2,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     refetchOnWindowFocus: false,
@@ -1044,6 +1075,7 @@ export function useUpdateFaviconUrl() {
       }
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["favicon-url"] }),
+    onError: () => toast.error(SAVE_ERROR_MSG),
   });
 }
 
@@ -1078,7 +1110,7 @@ export function useIsAdmin() {
       return actor.isCallerAdmin();
     },
     enabled: !!actor && !isFetching,
-    retry: 0,
+    retry: false,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
   });

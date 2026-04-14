@@ -435,7 +435,7 @@ function ShopSkeletons() {
 function EmptyState({ category }: { category: Category }) {
   const msg =
     category === "all"
-      ? "Noch keine Produkte verfügbar."
+      ? "Momentan sind keine Produkte verfügbar. Schau bald wieder vorbei!"
       : category === "digital"
         ? "Keine digitalen Produkte verfügbar."
         : "Kein Merch verfügbar.";

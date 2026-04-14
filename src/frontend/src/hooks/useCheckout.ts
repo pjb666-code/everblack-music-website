@@ -1,6 +1,6 @@
 import type { Product, ShoppingItem } from "@/backend";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useActor } from "./useActor";
 
@@ -11,9 +11,71 @@ export type CheckoutSession = {
 
 export type CartEntry = { product: Product; quantity: number };
 
+const CART_STORAGE_KEY = "everblack-cart";
+
+function serializeCart(cart: Map<bigint, CartEntry>): string {
+  const entries = Array.from(cart.entries()).map(([id, entry]) => ({
+    id: id.toString(),
+    product: {
+      ...entry.product,
+      id: entry.product.id.toString(),
+      price: entry.product.price.toString(),
+      inventory: entry.product.inventory.toString(),
+    },
+    quantity: entry.quantity,
+  }));
+  return JSON.stringify(entries);
+}
+
+function deserializeCart(raw: string): Map<bigint, CartEntry> {
+  const map = new Map<bigint, CartEntry>();
+  try {
+    const entries = JSON.parse(raw) as Array<{
+      id: string;
+      product: Record<string, unknown>;
+      quantity: number;
+    }>;
+    for (const entry of entries) {
+      const id = BigInt(entry.id);
+      const p = entry.product as unknown as Product;
+      map.set(id, {
+        product: {
+          ...p,
+          id,
+          price: BigInt(String(p.price)),
+          inventory: BigInt(String(p.inventory)),
+        },
+        quantity: entry.quantity,
+      });
+    }
+  } catch {
+    // ignore parse errors — return empty map
+  }
+  return map;
+}
+
+function loadCartFromStorage(): Map<bigint, CartEntry> {
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    if (raw) return deserializeCart(raw);
+  } catch {
+    // ignore
+  }
+  return new Map();
+}
+
 export function useCheckout() {
   const { actor } = useActor();
-  const [cart, setCart] = useState<Map<bigint, CartEntry>>(new Map());
+  const [cart, setCart] = useState<Map<bigint, CartEntry>>(loadCartFromStorage);
+
+  // Sync cart to localStorage on every change
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, serializeCart(cart));
+    } catch {
+      // ignore storage errors
+    }
+  }, [cart]);
 
   const { data: isStripeConfigured } = useQuery({
     queryKey: ["stripe-configured"],

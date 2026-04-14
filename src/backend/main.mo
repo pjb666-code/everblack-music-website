@@ -275,7 +275,7 @@ actor EverblackMusic {
   };
 
   // Admin setup code — used to regain admin access after rebuilds
-  var adminSetupCode : Text = "everblack-admin-2024";
+  var adminSetupCode : Text = "xK9mP2vQ8nR5tL1wJ7hF3";
 
   // Seed version — increment to force re-seed with new data on next upgrade.
   // Version history: 0 = unseeded, 1 = old (wrong) data, 2 = correct lesson models

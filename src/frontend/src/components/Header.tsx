@@ -42,14 +42,15 @@ function LogoImage({ scrolled }: { scrolled: boolean }) {
   const logoWidth = Math.round((sizePercent / 100) * 200);
 
   return (
-    <img
-      src={logoSrc}
-      alt="Everblack Music Logo"
-      className={`object-contain transition-all duration-300 ${
-        scrolled ? "max-h-12 md:max-h-14" : "max-h-16 md:max-h-20"
-      }`}
-      style={{ width: `${logoWidth}px`, maxWidth: "100%" }}
-    />
+    <div style={{ maxWidth: `${logoWidth}px`, width: "100%", flexShrink: 0 }}>
+      <img
+        src={logoSrc}
+        alt="Everblack Music Logo"
+        className={`object-contain w-full transition-all duration-300 ${
+          scrolled ? "max-h-12 md:max-h-14" : "max-h-16 md:max-h-20"
+        }`}
+      />
+    </div>
   );
 }
 
