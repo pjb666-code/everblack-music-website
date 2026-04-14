@@ -1,0 +1,41 @@
+type TeachingModel = 
+ record {
+   description: text;
+   features: vec text;
+   price: text;
+   title: text;
+ };
+type HeroSection = record {headline: text;};
+type HeaderSection = 
+ record {
+   compact: bool;
+   logoPath: text;
+   verticalPadding: nat;
+ };
+type FileReference = 
+ record {
+   hash: text;
+   path: text;
+ };
+type ContactInfo = 
+ record {
+   address: text;
+   email: text;
+   name: text;
+ };
+type AboutSection = 
+ record {
+   content: text;
+   title: text;
+ };
+service : {
+  dropFileReference: (path: text) -> ();
+  getAboutSection: () -> (AboutSection);
+  getContactInfo: () -> (ContactInfo);
+  getFileReference: (path: text) -> (FileReference);
+  getHeaderSection: () -> (HeaderSection);
+  getHeroSection: () -> (HeroSection);
+  getTeachingModels: () -> (vec TeachingModel);
+  listFileReferences: () -> (vec FileReference);
+  registerFileReference: (path: text, hash: text) -> ();
+}

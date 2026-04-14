@@ -1,0 +1,27 @@
+{
+  "overview": "Everblack Music is a professional landing page and web portal for a guitar teaching business in Aachen. Features dedicated pages for lessons, studio services, media, and an online shop. Managed entirely via a powerful admin panel with full CRUD control over all content, texts, images, colors, and media.",
+  "features": [
+    "Full CRUD admin panel for all site content",
+    "Dedicated pages for guitar lessons, studio services, media, and shop",
+    "Album upload with multi-track support and cover artwork",
+    "Separate logo and favicon management",
+    "Editable texts across all pages",
+    "Contextual image uploads per content item",
+    "Stripe-integrated shop for digital products and merch",
+    "YouTube embeds and Spotify link cards on Media page",
+    "Dark turquoise-themed design with gradient support",
+    "Legal pages (Impressum, Datenschutz, AGB) editable via admin"
+  ],
+  "category": "music-entertainment",
+  "tags": [
+    "music",
+    "guitar",
+    "lessons",
+    "studio",
+    "portfolio",
+    "shop",
+    "admin",
+    "media"
+  ],
+  "last_updated": "2026-04-13T20:32:00.177Z"
+}

@@ -1,0 +1,203 @@
+// Version: 1.0.0
+type Album__109360601 =
+  {
+    artist : Text;
+    coverPath : ?Text;
+    description : ?Text;
+    id : Text;
+    order : Nat;
+    releaseYear : ?Text;
+    title : Text
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type FeatureCard__268076130 =
+  {
+    color : Text;
+    icon : Text;
+    id : Nat;
+    order : Nat;
+    subtitle : Text;
+    title : Text
+  };
+type FileReference__615446570 = {hash : Text; path : Text};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type MediaItem__157066646 =
+  {
+    albumCoverPath : ?Text;
+    albumId : ?Text;
+    albumTitle : ?Text;
+    description : Text;
+    id : Nat;
+    isAlbumTrack : Bool;
+    mediaType : Text;
+    thumbnailPath : ?Text;
+    title : Text;
+    trackNumber : ?Nat;
+    url : Text;
+    waveformPath : ?Text
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type Product__853085059 =
+  {
+    category : Text;
+    description : Text;
+    id : Nat;
+    imageUrl : Text;
+    inventory : Nat;
+    isDigital : Bool;
+    price : Nat;
+    title : Text
+  };
+type StripeConfiguration__673337918 =
+  {allowedCountries : [Text]; secretKey : Text};
+type StudioService__149072081 =
+  {
+    description : Text;
+    id : Nat;
+    imagePath : ?Text;
+    mediaSamples : [Text];
+    order : Nat;
+    price : Text;
+    title : Text
+  };
+type StudioStat__578765889 =
+  {icon : Text; id : Text; order : Nat; statLabel : Text};
+type TeachingModel__857976735 =
+  {
+    description : Text;
+    featured : Bool;
+    features : [Text];
+    id : Nat;
+    imagePath : ?Text;
+    order : Nat;
+    price : Text;
+    subtitle : Text;
+    title : Text
+  };
+type UserProfile__491224006 = {name : Text};
+type UserRole__521596351 = {#admin; #guest; #user};
+actor {
+  stable var aboutSection : {content : Text; title : Text};
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__521596351>
+    };
+  stable var adminCredentials : {passwordHash : Text; username : Text};
+  stable var adminSetupCode : Text;
+  stable albums :
+    {
+      var root : Node__46230540<Text, Album__109360601>;
+      var size : Nat__490723111
+    };
+  stable var animationConfig :
+    {animationDuration : Nat; scrollAnimationsEnabled : Bool};
+  stable var colorScheme :
+    {
+      backgroundColor : Text;
+      gradientEnabled : Bool;
+      gradientEndColor : Text;
+      gradientStartColor : Text;
+      primaryColor : Text;
+      secondaryColor : Text;
+      textColor : Text
+    };
+  stable var contactInfo :
+    {address : Text; email : Text; name : Text; phone : ?Text};
+  stable var faviconUrl : Text;
+  stable featureCards :
+    {
+      var root : Node__46230540<Nat, FeatureCard__268076130>;
+      var size : Nat__490723111
+    };
+  stable var heroSection :
+    {
+      backgroundImageUrl : ?Text;
+      ctaPrimary : Text;
+      ctaSecondary : Text;
+      headline : Text;
+      subheadline : Text
+    };
+  stable var imprintText : {content : Text; lastUpdated : Nat64};
+  stable var landingPageConfig :
+    {
+      featuredContentId : ?Nat;
+      featuredContentType : Text;
+      showFeaturedContent : Bool
+    };
+  stable var logoSizePercent : Nat;
+  stable mediaItems :
+    {
+      var root : Node__46230540<Nat, MediaItem__157066646>;
+      var size : Nat__490723111
+    };
+  stable var nextFeatureCardId : Nat;
+  stable var nextMediaItemId : Nat;
+  stable var nextProductId : Nat;
+  stable var nextStudioServiceId : Nat;
+  stable var nextTeachingModelId : Nat;
+  stable var privacyPolicyText : {content : Text; lastUpdated : Nat64};
+  stable products :
+    {
+      var root : Node__46230540<Nat, Product__853085059>;
+      var size : Nat__490723111
+    };
+  stable registry :
+    {
+      var authorizedPrincipals : [Principal];
+      blobsToRemove : Map__605269027<Text, Bool>;
+      references : Map__605269027<Text, FileReference__615446570>
+    };
+  stable var seedVersion : Nat;
+  stable sessionOwners :
+    {var root : Node__46230540<Text, Principal>; var size : Nat__490723111};
+  stable var siteLogoUrl : Text;
+  stable var siteTexts :
+    {
+      footerCopyright : ?Text;
+      mediaCTA : ?Text;
+      mediaHeadline : ?Text;
+      mediaIntro : ?Text;
+      shopCTA : ?Text;
+      shopHeadline : ?Text;
+      shopIntro : ?Text;
+      studioCTA : ?Text;
+      studioHeadline : ?Text;
+      studioIntro : ?Text;
+      unterrichtCTA : ?Text;
+      unterrichtHeadline : ?Text;
+      unterrichtIntro : ?Text
+    };
+  stable var stripeConfig : ?StripeConfiguration__673337918;
+  stable studioServices :
+    {
+      var root : Node__46230540<Nat, StudioService__149072081>;
+      var size : Nat__490723111
+    };
+  stable studioStats :
+    {
+      var root : Node__46230540<Text, StudioStat__578765889>;
+      var size : Nat__490723111
+    };
+  stable teachingModels :
+    {
+      var root : Node__46230540<Nat, TeachingModel__857976735>;
+      var size : Nat__490723111
+    };
+  stable var termsOfServiceText : {content : Text; lastUpdated : Nat64};
+  stable userProfiles :
+    {
+      var root : Node__46230540<Principal, UserProfile__491224006>;
+      var size : Nat__490723111
+    }
+};

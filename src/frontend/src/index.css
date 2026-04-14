@@ -1,0 +1,452 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+    --background: 0.98 0 0;
+    --foreground: 0.15 0 0;
+    --card: 1 0 0;
+    --card-foreground: 0.15 0 0;
+    --popover: 1 0 0;
+    --popover-foreground: 0.15 0 0;
+    --primary: 0.54 0.2 185;
+    --primary-foreground: 0.98 0 0;
+    --secondary: 0.92 0 0;
+    --secondary-foreground: 0.15 0 0;
+    --muted: 0.94 0 0;
+    --muted-foreground: 0.5 0 0;
+    --accent: 0.54 0.2 185;
+    --accent-foreground: 0.98 0 0;
+    --destructive: 0.55 0.25 25;
+    --destructive-foreground: 0.98 0 0;
+    --border: 0.88 0 0;
+    --input: 0.88 0 0;
+    --ring: 0.54 0.2 185;
+    --chart-1: 0.54 0.2 185;
+    --chart-2: 0.58 0.18 185;
+    --chart-3: 0.65 0.15 130;
+    --chart-4: 0.7 0.2 60;
+    --chart-5: 0.72 0.18 120;
+    --sidebar: 0.98 0 0;
+    --sidebar-foreground: 0.15 0 0;
+    --sidebar-primary: 0.54 0.2 185;
+    --sidebar-primary-foreground: 0.08 0 0;
+    --sidebar-accent: 0.94 0 0;
+    --sidebar-accent-foreground: 0.15 0 0;
+    --sidebar-border: 0.88 0 0;
+    --sidebar-ring: 0.7 0 0;
+
+    --gradient-start: #0d9488;
+    --gradient-end: #0a6e62;
+    --use-gradient: 0;
+
+    /* Typography System */
+    --font-display: "General Sans", system-ui, sans-serif;
+    --font-body: "DM Sans", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+
+    /* Shadow Hierarchy */
+    --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0
+      rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px
+      rgba(0, 0, 0, 0.1);
+    --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px
+      rgba(0, 0, 0, 0.1);
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 0.08 0 0;
+    --foreground: 0.95 0 0;
+    --card: 0.14 0 0;
+    --card-foreground: 0.95 0 0;
+    --popover: 0.16 0 0;
+    --popover-foreground: 0.95 0 0;
+    --primary: 0.54 0.2 185;
+    --primary-foreground: 0.95 0 0;
+    --secondary: 0.22 0 0;
+    --secondary-foreground: 0.95 0 0;
+    --muted: 0.2 0 0;
+    --muted-foreground: 0.72 0 0;
+    --accent: 0.54 0.2 185;
+    --accent-foreground: 0.08 0 0;
+    --destructive: 0.6 0.25 25;
+    --destructive-foreground: 0.95 0 0;
+    --success: 0.65 0.15 130;
+    --success-foreground: 0.12 0 0;
+    --warning: 0.7 0.2 60;
+    --warning-foreground: 0.12 0 0;
+    --border: 0.28 0 0;
+    --input: 0.28 0 0;
+    --ring: 0.54 0.2 185;
+    --chart-1: 0.54 0.2 185;
+    --chart-2: 0.58 0.18 185;
+    --chart-3: 0.65 0.15 130;
+    --chart-4: 0.7 0.2 60;
+    --chart-5: 0.72 0.18 120;
+    --sidebar: 0.14 0 0;
+    --sidebar-foreground: 0.95 0 0;
+    --sidebar-primary: 0.54 0.2 185;
+    --sidebar-primary-foreground: 0.95 0 0;
+    --sidebar-accent: 0.22 0 0;
+    --sidebar-accent-foreground: 0.95 0 0;
+    --sidebar-border: 0.22 0 0;
+    --sidebar-ring: 0.5 0 0;
+
+    /* Section Backgrounds for Depth */
+    --section-alt: 0.11 0 0;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    font-feature-settings: "cv11" 1;
+  }
+
+  /* Typography Scale */
+  h1,
+  .text-display-lg {
+    @apply font-bold text-5xl md:text-6xl tracking-tight;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  h2,
+  .text-display {
+    @apply font-bold text-4xl md:text-5xl;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  h3,
+  .text-heading {
+    @apply font-bold text-2xl md:text-3xl;
+    font-family: var(--font-display);
+  }
+
+  h4,
+  .text-subheading {
+    @apply font-semibold text-lg md:text-xl;
+    font-family: var(--font-display);
+  }
+
+  p,
+  .text-body {
+    @apply text-base leading-relaxed;
+    font-family: var(--font-body);
+  }
+
+  .text-body-sm {
+    @apply text-sm leading-relaxed;
+    font-family: var(--font-body);
+  }
+
+  .text-muted {
+    @apply text-muted-foreground;
+  }
+
+  code,
+  pre {
+    font-family: var(--font-mono);
+  }
+  /* Input field polish */
+  input,
+  textarea,
+  select {
+    @apply border border-input bg-background rounded-lg px-3 py-2 text-sm text-foreground transition-colors duration-200;
+    outline: none;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply border-primary ring-2 ring-ring ring-offset-0;
+    --tw-ring-opacity: 0.2;
+  }
+
+  /* Card base layer refinement */
+  .card-refined {
+    @apply bg-card border border-border rounded-xl shadow-subtle transition-all duration-300;
+  }
+}
+
+/* Optimize image loading */
+img {
+  content-visibility: auto;
+}
+
+/* Font Face Declarations */
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Smooth transitions for lightbox */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Utility Classes */
+@layer utilities {
+  .shadow-subtle {
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .shadow-medium {
+    box-shadow: var(--shadow-medium);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-fast {
+    transition: var(--transition-fast);
+  }
+
+  .text-display-lg {
+    @apply font-bold text-5xl md:text-6xl tracking-tight;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  .text-display {
+    @apply font-bold text-4xl md:text-5xl;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  .text-heading {
+    @apply font-bold text-2xl md:text-3xl;
+    font-family: var(--font-display);
+  }
+
+  .text-subheading {
+    @apply font-semibold text-lg md:text-xl;
+    font-family: var(--font-display);
+  }
+
+  .text-body {
+    @apply text-base leading-relaxed;
+    font-family: var(--font-body);
+  }
+
+  .text-body-sm {
+    @apply text-sm leading-relaxed;
+    font-family: var(--font-body);
+  }
+
+  /* Interactive States */
+  .interactive-base {
+    @apply transition-smooth cursor-pointer;
+  }
+
+  .button-base {
+    @apply interactive-base px-4 py-2 rounded-md font-semibold;
+  }
+
+  .button-primary {
+    @apply button-base bg-primary text-primary-foreground hover:opacity-90 active:opacity-80;
+  }
+
+  .button-accent {
+    @apply button-base bg-accent text-accent-foreground hover:opacity-90 active:opacity-80;
+  }
+
+  .button-ghost {
+    @apply button-base bg-transparent hover:bg-muted active:bg-muted/80;
+  }
+
+  /* Card Enhancement */
+  .card-base {
+    @apply bg-card text-card-foreground rounded-lg border border-border shadow-subtle transition-smooth;
+  }
+
+  .card-hover {
+    @apply bg-card text-card-foreground rounded-lg border border-border shadow-subtle transition-smooth hover:shadow-medium;
+  }
+
+  .card-interactive {
+    @apply card-hover hover:translate-y-[-2px];
+  }
+
+  /* Section Backgrounds */
+  .section-default {
+    @apply bg-background;
+  }
+
+  .section-alt {
+    @apply bg-secondary/5;
+  }
+
+  /* Focus Ring */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  /* Icon Sizing */
+  .icon-xs {
+    @apply w-3 h-3;
+  }
+
+  .icon-sm {
+    @apply w-4 h-4;
+  }
+
+  .icon-base {
+    @apply w-5 h-5;
+  }
+
+  .icon-lg {
+    @apply w-6 h-6;
+  }
+
+  .icon-xl {
+    @apply w-8 h-8;
+  }
+
+  /* Accent Color Utilities */
+  .accent-text {
+    @apply text-accent;
+  }
+
+  .accent-bg {
+    @apply bg-accent;
+  }
+
+  .accent-border {
+    @apply border-accent;
+  }
+
+  .accent-ring {
+    @apply ring-accent;
+  }
+
+  /* Gradient Utilities — use CSS vars so admin color changes propagate */
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      var(--gradient-start, #0d9488),
+      var(--gradient-end, #06b6d4)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-bg {
+    background: linear-gradient(
+      135deg,
+      var(--gradient-start, #0d9488),
+      var(--gradient-end, #06b6d4)
+    );
+  }
+
+  .gradient-border-b {
+    border-bottom: 2px solid transparent;
+    background-image: linear-gradient(
+        var(--card, #141414),
+        var(--card, #141414)
+      ),
+      linear-gradient(
+        to right,
+        var(--gradient-start, #0d9488),
+        var(--gradient-end, #06b6d4)
+      );
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  /* Accent divider — replaces hardcoded gradient dividers on section headings */
+  .accent-divider {
+    height: 3px;
+    width: 4rem;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to right,
+      var(--gradient-start, #0d9488),
+      var(--gradient-end, #06b6d4)
+    );
+  }
+}

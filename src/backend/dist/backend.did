@@ -1,0 +1,299 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type _CaffeineStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _CaffeineStorageRefillInformation = record {
+                                           proposed_top_up_amount: opt nat;};
+type _CaffeineStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = record {name: text;};
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type TeachingModel = 
+ record {
+   description: text;
+   featured: bool;
+   features: vec text;
+   id: nat;
+   imagePath: opt text;
+   order: nat;
+   price: text;
+   subtitle: text;
+   title: text;
+ };
+type StudioStat = 
+ record {
+   icon: text;
+   id: text;
+   order: nat;
+   statLabel: text;
+ };
+type StudioService = 
+ record {
+   description: text;
+   id: nat;
+   imagePath: opt text;
+   mediaSamples: vec text;
+   order: nat;
+   price: text;
+   title: text;
+ };
+type StripeSessionStatus = 
+ variant {
+   completed: record {
+                response: text;
+                userPrincipal: opt text;
+              };
+   failed: record {error: text;};
+ };
+type StripeConfiguration = 
+ record {
+   allowedCountries: vec text;
+   secretKey: text;
+ };
+type SiteTexts = 
+ record {
+   footerCopyright: opt text;
+   mediaCTA: opt text;
+   mediaHeadline: opt text;
+   mediaIntro: opt text;
+   shopCTA: opt text;
+   shopHeadline: opt text;
+   shopIntro: opt text;
+   studioCTA: opt text;
+   studioHeadline: opt text;
+   studioIntro: opt text;
+   unterrichtCTA: opt text;
+   unterrichtHeadline: opt text;
+   unterrichtIntro: opt text;
+ };
+type ShoppingItem = 
+ record {
+   currency: text;
+   priceInCents: nat;
+   productDescription: text;
+   productName: text;
+   quantity: nat;
+ };
+type Product = 
+ record {
+   category: text;
+   description: text;
+   id: nat;
+   imageUrl: text;
+   inventory: nat;
+   isDigital: bool;
+   price: nat;
+   title: text;
+ };
+type MediaItem = 
+ record {
+   albumCoverPath: opt text;
+   albumId: opt text;
+   albumTitle: opt text;
+   description: text;
+   id: nat;
+   isAlbumTrack: bool;
+   mediaType: text;
+   thumbnailPath: opt text;
+   title: text;
+   trackNumber: opt nat;
+   url: text;
+   waveformPath: opt text;
+ };
+type LegalDocument = 
+ record {
+   content: text;
+   lastUpdated: nat64;
+ };
+type LandingPageConfig = 
+ record {
+   featuredContentId: opt nat;
+   featuredContentType: text;
+   showFeaturedContent: bool;
+ };
+type HeroSection = 
+ record {
+   backgroundImageUrl: opt text;
+   ctaPrimary: text;
+   ctaSecondary: text;
+   headline: text;
+   subheadline: text;
+ };
+type HeaderSection = 
+ record {
+   compact: bool;
+   logoPath: text;
+   logoSizePercent: nat;
+   verticalPadding: nat;
+ };
+type FileReference = 
+ record {
+   hash: text;
+   path: text;
+ };
+type FeatureCard = 
+ record {
+   color: text;
+   icon: text;
+   id: nat;
+   order: nat;
+   subtitle: text;
+   title: text;
+ };
+type ContactInfo = 
+ record {
+   address: text;
+   email: text;
+   name: text;
+   phone: opt text;
+ };
+type ColorScheme = 
+ record {
+   backgroundColor: text;
+   gradientEnabled: bool;
+   gradientEndColor: text;
+   gradientStartColor: text;
+   primaryColor: text;
+   secondaryColor: text;
+   textColor: text;
+ };
+type AnimationConfig = 
+ record {
+   animationDuration: nat;
+   scrollAnimationsEnabled: bool;
+ };
+type Album = 
+ record {
+   artist: text;
+   coverPath: opt text;
+   description: opt text;
+   id: text;
+   order: nat;
+   releaseYear: opt text;
+   title: text;
+ };
+type AdminCredentials = 
+ record {
+   passwordHash: text;
+   username: text;
+ };
+type AboutSection = 
+ record {
+   content: text;
+   title: text;
+ };
+service : {
+  _caffeineStorageBlobsToDelete: () -> (vec text) query;
+  _caffeineStorageConfirmBlobDeletion: (blobs: vec text) -> ();
+  _caffeineStorageCreateCertificate: (blob_hash: text) ->
+   (_CaffeineStorageCreateCertificateResult);
+  _caffeineStorageRefillCashier: (refillInformation:
+   opt _CaffeineStorageRefillInformation) -> (_CaffeineStorageRefillResult);
+  _caffeineStorageUpdateGatewayPrincipals: () -> ();
+  addAlbum: (album: Album) -> ();
+  addFeatureCard: (card: FeatureCard) -> (nat);
+  addMediaItem: (item: MediaItem) -> (nat);
+  addProduct: (product: Product) -> (nat);
+  addStudioService: ("service": StudioService) -> (nat);
+  addStudioStat: (stat: StudioStat) -> ();
+  addTeachingModel: (model: TeachingModel) -> (nat);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  createCheckoutSession: (items: vec ShoppingItem, successUrl: text,
+   cancelUrl: text) -> (text);
+  deleteAlbum: (id: text) -> ();
+  deleteFeatureCard: (id: nat) -> ();
+  deleteMediaItem: (id: nat) -> ();
+  deleteProduct: (id: nat) -> ();
+  deleteStudioService: (id: nat) -> ();
+  deleteStudioStat: (id: text) -> ();
+  deleteTeachingModel: (id: nat) -> ();
+  dropFileReference: (path: text) -> ();
+  getAboutSection: () -> (AboutSection) query;
+  getAlbums: () -> (vec Album) query;
+  getAnimationConfig: () -> (AnimationConfig) query;
+  getCallerUserProfile: () -> (opt UserProfile) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getColorScheme: () -> (ColorScheme) query;
+  getContactInfo: () -> (ContactInfo) query;
+  getFaviconUrl: () -> (text) query;
+  getFeatureCards: () -> (vec FeatureCard) query;
+  getFileReference: (path: text) -> (FileReference) query;
+  getHeaderSection: () -> (HeaderSection) query;
+  getHeroSection: () -> (HeroSection) query;
+  getImprint: () -> (LegalDocument) query;
+  getLandingPageConfig: () -> (LandingPageConfig) query;
+  getLogoSizePercent: () -> (nat) query;
+  getMediaItems: () -> (vec MediaItem) query;
+  getPrivacyPolicy: () -> (LegalDocument) query;
+  getProducts: () -> (vec Product) query;
+  getSiteLogoUrl: () -> (text) query;
+  getSiteTexts: () -> (SiteTexts) query;
+  getStripeSessionStatus: (sessionId: text) -> (StripeSessionStatus);
+  getStudioServices: () -> (vec StudioService) query;
+  getStudioStats: () -> (vec StudioStat) query;
+  getTeachingModels: () -> (vec TeachingModel) query;
+  getTermsOfService: () -> (LegalDocument) query;
+  getUserProfile: (user: principal) -> (opt UserProfile) query;
+  initializeAccessControl: () -> ();
+  isCallerAdmin: () -> (bool) query;
+  isStripeConfigured: () -> (bool) query;
+  listFileReferences: () -> (vec FileReference) query;
+  registerFileReference: (path: text, hash: text) -> ();
+  resetAdminForNewPrincipal: (setupCode: text) -> (bool);
+  saveCallerUserProfile: (profile: UserProfile) -> ();
+  setStripeConfiguration: (config: StripeConfiguration) -> ();
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+  updateAboutSection: (section: AboutSection) -> ();
+  updateAdminCredentials: (newCredentials: AdminCredentials) -> ();
+  updateAdminSetupCode: (newCode: text) -> ();
+  updateAlbum: (album: Album) -> ();
+  updateAnimationConfig: (config: AnimationConfig) -> ();
+  updateColorScheme: (newScheme: ColorScheme) -> ();
+  updateContactInfo: (info: ContactInfo) -> ();
+  updateFaviconUrl: (url: text) -> ();
+  updateFeatureCard: (card: FeatureCard) -> ();
+  updateHeroSection: (section: HeroSection) -> ();
+  updateImprint: (content: text) -> ();
+  updateLandingPageConfig: (config: LandingPageConfig) -> ();
+  updateLogoSizePercent: (size: nat) -> ();
+  updateMediaItem: (item: MediaItem) -> ();
+  updatePrivacyPolicy: (content: text) -> ();
+  updateProduct: (product: Product) -> ();
+  updateSiteLogoUrl: (url: text) -> ();
+  updateSiteTexts: (updated: SiteTexts) -> ();
+  updateStudioService: ("service": StudioService) -> ();
+  updateStudioStat: (stat: StudioStat) -> ();
+  updateTeachingModel: (model: TeachingModel) -> ();
+  updateTermsOfService: (content: text) -> ();
+}
