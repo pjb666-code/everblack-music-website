@@ -40155,7 +40155,7 @@ const NAV_ITEMS = [
   { label: "Media", path: "/media" },
   { label: "Shop", path: "/shop" }
 ];
-function LogoImage({ scrolled }) {
+function LogoImage(_2) {
   const { data: logoPath } = useSiteLogoUrl();
   const { data: logoSizePct } = useLogoSizePercent();
   const { data: blobLogoUrl } = useFileUrl(logoPath ?? "");
@@ -40172,14 +40172,24 @@ function LogoImage({ scrolled }) {
   const logoSrc = blobLogoUrl ?? ((logoPath == null ? void 0 : logoPath.startsWith("http")) ? logoPath : null) ?? `/assets/${(headerData == null ? void 0 : headerData.logoPath) ?? "Transparent Background-white.png"}`;
   const sizePercent = logoSizePct !== void 0 ? Number(logoSizePct) : 100;
   const logoWidth = Math.round(sizePercent / 100 * 200);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { maxWidth: `${logoWidth}px`, width: "100%", flexShrink: 0 }, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-    "img",
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "div",
     {
-      src: logoSrc,
-      alt: "Everblack Music Logo",
-      className: `object-contain w-full transition-all duration-300 ${scrolled ? "max-h-12 md:max-h-14" : "max-h-16 md:max-h-20"}`
+      style: {
+        maxWidth: `${logoWidth}px`,
+        width: "100%",
+        flexShrink: 0
+      },
+      children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "img",
+        {
+          src: logoSrc,
+          alt: "Everblack Music Logo",
+          className: `object-contain w-full transition-all duration-300 ${_2.scrolled ? "max-h-10" : "max-h-14"}`
+        }
+      )
     }
-  ) });
+  );
 }
 function Header() {
   const navigate = useNavigate();
@@ -53420,7 +53430,7 @@ function Hero() {
             {
               className: "text-body text-muted-foreground text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed",
               "data-ocid": "hero-subline",
-              children: "Professioneller Unterricht für Anfänger bis Fortgeschrittene — individuell, praxisnah und in Aachen."
+              children: (heroData == null ? void 0 : heroData.subheadline) ?? "Professioneller Unterricht für Anfänger bis Fortgeschrittene — individuell, praxisnah und in Aachen."
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -53436,7 +53446,7 @@ function Hero() {
                     size: "lg",
                     className: "text-base px-8 py-5 h-auto shadow-elevated shadow-primary/20 font-semibold transition-smooth",
                     "data-ocid": "hero-cta-primary",
-                    children: "Unterrichtsmodelle"
+                    children: (heroData == null ? void 0 : heroData.ctaPrimary) ?? "Unterrichtsmodelle"
                   }
                 ),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -53445,9 +53455,9 @@ function Hero() {
                     onClick: () => scrollToSection("contact"),
                     size: "lg",
                     variant: "outline",
-                    className: "text-base px-8 py-5 h-auto border-border/60 hover:border-primary/50 hover:bg-primary/5 font-medium transition-smooth",
+                    className: "text-base px-8 py-5 h-auto bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm font-medium transition-smooth",
                     "data-ocid": "hero-cta-secondary",
-                    children: "Kontakt aufnehmen"
+                    children: (heroData == null ? void 0 : heroData.ctaSecondary) ?? "Kontakt aufnehmen"
                   }
                 )
               ]
@@ -55441,33 +55451,9 @@ function EmptyState({ category }) {
     }
   );
 }
-function StripeNotConfiguredBanner() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    "div",
-    {
-      className: "flex items-start gap-3 rounded-xl bg-destructive/10 border border-destructive/30 px-5 py-4 mb-10",
-      role: "alert",
-      "data-ocid": "stripe-warning",
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          TriangleAlert,
-          {
-            className: "w-5 h-5 text-destructive mt-0.5 flex-shrink-0",
-            "aria-hidden": true
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-semibold text-destructive", children: "Stripe nicht konfiguriert" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground mt-0.5", children: "Bestellungen sind noch nicht möglich. Bitte Stripe im Admin-Panel einrichten." })
-        ] })
-      ]
-    }
-  );
-}
 function ShopPage() {
   const { actor, isFetching } = useActor();
   const [category, setCategory] = reactExports.useState("all");
-  const { isStripeConfigured } = useCheckout();
   const { data: siteTexts } = useSiteTexts();
   reactExports.useEffect(() => {
     document.title = "Shop – Everblack Music";
@@ -55502,7 +55488,6 @@ function ShopPage() {
         /* @__PURE__ */ jsxRuntimeExports.jsx(CategoryFilter, { active: category, onChange: setCategory }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(CartSidebar, {})
       ] }) }),
-      !isStripeConfigured && !isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx(ScrollReveal, { direction: "up", delay: 100, children: /* @__PURE__ */ jsxRuntimeExports.jsx(StripeNotConfiguredBanner, {}) }),
       isLoading ? /* @__PURE__ */ jsxRuntimeExports.jsx(ShopSkeletons, {}) : filtered.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(EmptyState, { category }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6", children: filtered.map((product, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         ProductCard,
         {
@@ -56150,6 +56135,7 @@ const BENEFITS = [
 function UnterrichtPage() {
   const { actor, isFetching } = useActor();
   const { data: siteTexts } = useSiteTexts();
+  const { data: featureCards } = useFeatureCards();
   reactExports.useEffect(() => {
     document.title = "Unterricht – Everblack Music";
   }, []);
@@ -56187,7 +56173,10 @@ function UnterrichtPage() {
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-5xl md:text-6xl font-extrabold text-foreground mb-5 leading-tight tracking-tight", children: headline }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed", children: intro }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap justify-center gap-3 mt-8", children: BENEFITS.map(({ icon: Icon2, label }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap justify-center gap-3 mt-8", children: (featureCards && featureCards.length > 0 ? featureCards.map((card) => ({
+          icon: Star,
+          label: card.title
+        })) : BENEFITS).map(({ icon: Icon2, label }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "span",
           {
             className: "flex items-center gap-1.5 bg-muted/60 text-muted-foreground text-sm px-3.5 py-1.5 rounded-full border border-border",

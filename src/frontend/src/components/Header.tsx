@@ -40,13 +40,11 @@ function LogoImage(_: { scrolled: boolean }) {
   const sizePercent = logoSizePct !== undefined ? Number(logoSizePct) : 100;
   // sizePercent 20–200 maps to 40px–400px width; at 100% = 200px
   const logoWidth = Math.round((sizePercent / 100) * 200);
-  const logoHeight = Math.round((sizePercent / 100) * 64);
 
   return (
     <div
       style={{
         maxWidth: `${logoWidth}px`,
-        maxHeight: `${logoHeight}px`,
         width: "100%",
         flexShrink: 0,
       }}
@@ -54,7 +52,7 @@ function LogoImage(_: { scrolled: boolean }) {
       <img
         src={logoSrc}
         alt="Everblack Music Logo"
-        className="object-contain w-full h-full transition-all duration-300"
+        className={`object-contain w-full transition-all duration-300 ${_.scrolled ? "max-h-10" : "max-h-14"}`}
       />
     </div>
   );

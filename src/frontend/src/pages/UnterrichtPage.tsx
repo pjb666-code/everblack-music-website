@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useActor } from "@/hooks/useActor";
-import { useSiteTexts } from "@/hooks/useQueries";
+import { useFeatureCards, useSiteTexts } from "@/hooks/useQueries";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import {
@@ -207,6 +207,7 @@ const BENEFITS = [
 export default function UnterrichtPage() {
   const { actor, isFetching } = useActor();
   const { data: siteTexts } = useSiteTexts();
+  const { data: featureCards } = useFeatureCards();
 
   useEffect(() => {
     document.title = "Unterricht – Everblack Music";
@@ -263,7 +264,13 @@ export default function UnterrichtPage() {
 
             {/* Benefit pills */}
             <div className="flex flex-wrap justify-center gap-3 mt-8">
-              {BENEFITS.map(({ icon: Icon, label }) => (
+              {(featureCards && featureCards.length > 0
+                ? featureCards.map((card) => ({
+                    icon: Star,
+                    label: card.title,
+                  }))
+                : BENEFITS
+              ).map(({ icon: Icon, label }) => (
                 <span
                   key={label}
                   className="flex items-center gap-1.5 bg-muted/60 text-muted-foreground text-sm px-3.5 py-1.5 rounded-full border border-border"

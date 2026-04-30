@@ -99,8 +99,8 @@ export default function Hero() {
               className="text-body text-muted-foreground text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed"
               data-ocid="hero-subline"
             >
-              Professioneller Unterricht für Anfänger bis Fortgeschrittene —
-              individuell, praxisnah und in Aachen.
+              {heroData?.subheadline ??
+                "Professioneller Unterricht für Anfänger bis Fortgeschrittene — individuell, praxisnah und in Aachen."}
             </p>
 
             {/* CTAs */}
@@ -114,16 +114,16 @@ export default function Hero() {
                 className="text-base px-8 py-5 h-auto shadow-elevated shadow-primary/20 font-semibold transition-smooth"
                 data-ocid="hero-cta-primary"
               >
-                Unterrichtsmodelle
+                {heroData?.ctaPrimary ?? "Unterrichtsmodelle"}
               </Button>
               <Button
                 onClick={() => scrollToSection("contact")}
                 size="lg"
                 variant="outline"
-                className="text-base px-8 py-5 h-auto border-border/60 hover:border-primary/50 hover:bg-primary/5 font-medium transition-smooth"
+                className="text-base px-8 py-5 h-auto bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm font-medium transition-smooth"
                 data-ocid="hero-cta-secondary"
               >
-                Kontakt aufnehmen
+                {heroData?.ctaSecondary ?? "Kontakt aufnehmen"}
               </Button>
             </div>
           </ScrollReveal>
